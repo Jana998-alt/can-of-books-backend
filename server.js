@@ -62,7 +62,7 @@ function seedUsersCollection() {
 
     )
 
-    jana.save();
+    // jana.save();
 }
 
 
@@ -76,58 +76,57 @@ function retriveBooksForUser(req, res) {
             res.send('there is an error')
         }
         else {
-            res.send(userData.books) // userData has the return value of the find method
+            res.send(userData[0].books) // userData has the return value of the find method
         }
     })
 }
 
 
 //route to add a new book to a user in the data base
-app.post('./books', postBooksHandler)
-
+app.post('/books', postBooksHandler)
 
 
 function postBooksHandler(request, response) {
 
+    console.log('request.body');
     let { email, bookName, bookDescription, bookStatus, bookImg } = request.body;
 
     userModel.find({ email: email }, (error, items) => {
-        try {
+        if(error) {
+            response.send('error');
+            console.log('ELSE ERROR');
+        }
+        else {
+            console.log(items[0]);
             items[0].books.push({
                 name: bookName,
                 description: bookDescription,
                 status: bookStatus,
                 img: bookImg,
             })
+            
             items[0].save();
-            //no need to respond....but how does the frontend take the array again?
         }
-        catch {
-            response.send(error);
-        }
+        
+        response.send(items[0].books)
     })
 }
 
 
 //route to delete a book from the user's data base
-app.delete('./books/:id', deleteBookhandler);
+app.delete('/books/:id', deleteBookhandler);
 
 function deleteBookhandler(request, response) {
     let id = request.params.id;
-    console.log(request.params);
     let email = request.query.email;
 
     userModel.find({ email: email }, (error, items) => {
-        items[0].books.filter(element, () => {
-            if (error) {
-                response.send(error);
-            }
-            else {
-                return element._id.string() !== id;
-            }
-        })
-
+        let newBooks = items[0].books.filter((element) => {element._id.toString() !== id})
+        items[0].books = newBooks;
+        items[0].save();
+        response.send(items[0].books);
     })
+    
 }
 
 
