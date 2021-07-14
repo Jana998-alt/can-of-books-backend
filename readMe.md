@@ -1,47 +1,23 @@
-# Best Books - Back End
+#Best Books
 
-**Author**: **Tariq** _Abu-laban_ & **Jana** _Abdelkader_
-
+**Author**: Jana Abdelkader & Tariq Abu-Laban
 **Version**: 1.0.0
 
 ## Overview
+A webpage that will allow the user to login using their google account, an has a personal profile that has their favorite books.
 
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
-
->       Back-end application using Express and MongoDB for our Front-End application "Best Books".
 
 ## Getting Started
-
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+sign-in using google.
 
 ## Architecture
-
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
-
-- Express
-- MongoDb
-- Mongoose
+React.js
+Bootstrap
+Auth0
 
 ## Change Log
 
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
-
-- Name of feature: Lab 12 - Tariq & Jana Pair Program (Best Books - Back End)
-
-  - Estimate of time needed to complete: 1 hours
-  - Start time: 1:30pm
-  - Finish time: 2:15pm
-  - Actual time needed to complete: 45 minutes
-
-- Name of feature: Lab 13 - Tariq & Jana Pair Program (Add Books , Delete Books)
-
-  - Estimate of time needed to complete: 3 hours
-  - Start time: 2:30pm
-  - Finish time: 6:10pm
-  - Actual time needed to complete: 3 hours 40 minutes
+11/7/2021 4:00 PM - The login using Auth0 is now activated. 
+14/7/2021 11:09   - The delete book and add book features are activated.
 
 ## Credit and Collaborations
-
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
