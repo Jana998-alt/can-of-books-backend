@@ -88,16 +88,14 @@ app.post('/books', postBooksHandler)
 
 function postBooksHandler(request, response) {
 
-    console.log('request.body');
     let { email, bookName, bookDescription, bookStatus, bookImg } = request.body;
 
     userModel.find({ email: email }, (error, items) => {
         if(error) {
             response.send('error');
-            console.log('ELSE ERROR');
         }
         else {
-            console.log(items[0]);
+
             items[0].books.push({
                 name: bookName,
                 description: bookDescription,
@@ -121,7 +119,7 @@ function deleteBookhandler(request, response) {
     let email = request.query.email;
 
     userModel.find({ email: email }, (error, items) => {
-        let newBooks = items[0].books.filter((element) => {element._id.toString() !== id})
+        let newBooks = items[0].books.filter((element) => {console.log(element._id.toString() !== id) ; return element._id.toString() !== id})
         items[0].books = newBooks;
         items[0].save();
         response.send(items[0].books);
