@@ -88,26 +88,23 @@ app.post('/books', postBooksHandler)
 
 function postBooksHandler(request, response) {
 
-    console.log('request.body');
     let { email, bookName, bookDescription, bookStatus, bookImg } = request.body;
 
     userModel.find({ email: email }, (error, items) => {
-        if(error) {
+        if (error) {
             response.send('error');
-            console.log('ELSE ERROR');
         }
         else {
-            console.log(items[0]);
             items[0].books.push({
                 name: bookName,
                 description: bookDescription,
                 status: bookStatus,
                 img: bookImg,
             })
-            
+
             items[0].save();
         }
-        
+
         response.send(items[0].books)
     })
 }
@@ -121,12 +118,43 @@ function deleteBookhandler(request, response) {
     let email = request.query.email;
 
     userModel.find({ email: email }, (error, items) => {
-        let newBooks = items[0].books.filter((element) => {element._id.toString() !== id})
+        let newBooks = items[0].books.filter((element) => {return element._id.toString() !== id })
         items[0].books = newBooks;
         items[0].save();
         response.send(items[0].books);
     })
-    
+
+}
+
+
+//updating a book
+app.put('/books/:id', updateBookhandler);
+
+function updateBookhandler(request, response) {
+
+    //get email & id
+    let id = request.params.id;
+    let { email, bookName, bookDescription, bookStatus, bookImg } = request.body;
+
+    //find the book through id through map, return the updated array of books
+    userModel.find({ email: email }, (error, items) => {
+        if (error){
+            response.send(error);
+        }
+        else{
+            let indexOfBook = items[0].books.findIndex(item => item._id.toString() === id);
+        items[0].books.splice(indexOfBook, 1, {
+            name: bookName,
+            description: bookDescription,
+            status: bookStatus,
+            img: bookImg,
+        })
+        items[0].save();
+        response.send(items[0].books);
+        }
+        
+    })
+
 }
 
 
